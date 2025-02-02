@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>depogit</title>
+  </head>
+  <body>
+    <ul>
+      {{ range . }}
+        <li>{{ .Name }} - {{ .Time }}</li>
+      {{ end }}
+    </ul>
+  </body>
+</html>
