@@ -5,23 +5,22 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
 
+	"github.com/dustin/go-humanize"
 	"github.com/go-git/go-git/v5"
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
-	log.Println(repoPath)
 	allPaths, err := os.ReadDir(repoPath)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("Failed to read path: %v\n", err)
+		log.Printf("ERRO: Failed to read path: %v\n", err)
 		return
 	}
 
 	type repo struct {
 		Name string
-		Time time.Time
+		Time string
 	}
 
 	var repos []repo
@@ -41,12 +40,12 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 			commit, err := r.CommitObject(head.Hash())
 			if err != nil {
-				log.Printf("Failed to get most recent repo commit: %v\n", err)
+				log.Printf("ERRO: Failed to get most recent repo commit: %v\n", err)
 			}
 
 			repos = append(repos, repo{
 				Name: rp.Name(),
-				Time: commit.Author.When,
+				Time: humanize.Time(commit.Author.When),
 			})
 		}
 	}

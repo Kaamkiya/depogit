@@ -2,7 +2,10 @@ module codeberg.org/Kaamkiya/depogit
 
 go 1.23.4
 
-require github.com/go-git/go-git/v5 v5.13.2
+require (
+	github.com/dustin/go-humanize v1.0.1
+	github.com/go-git/go-git/v5 v5.13.2
+)
 
 require (
 	dario.cat/mergo v1.0.0 // indirect

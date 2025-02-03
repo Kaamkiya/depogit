@@ -2,13 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>depogit</title>
+    <title>{{ .Name }} - depogit</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
   </head>
   <body>
     <ul>
-      {{ range . }}
-        <li><a href="/{{ .Name }}">{{ .Name }}</a> - {{ .Time }}</li>
+      {{ range .Commits }}
+        <li>{{ .Message }} - {{ .Time }}</li>
       {{ end }}
     </ul>
   </body>
