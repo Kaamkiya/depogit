@@ -1,5 +1,6 @@
 :root {
   --color-bg: #0f0f0f;
+  --color-bg-overlay: #1f1f1f;
   --color-fg: #f2f2f0;
 }
 
@@ -7,6 +8,11 @@ html, body {
   background: var(--color-bg);
   color: var(--color-fg);
   font-family: monospace;
+}
+
+main {
+  padding: 1em;
+  margin: 1em;
 }
 
 a {
@@ -19,4 +25,9 @@ thead {
 
 td {
   white-space: pre;
+  width: 33% !important;
+}
+
+.log tbody tr:nth-child(odd) {
+  background: var(--color-bg-overlay);
 }

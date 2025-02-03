@@ -6,23 +6,27 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
   </head>
   <body>
-    <table>
-      <thead>
-        <tr>
-          <td>Commit message</td>
-          <td>Time</td>
-          <td>Author</td>
-        </tr>
-      </thead>
-      <tbody>
-        {{ range .Commits }}
+    <h1><a href="/">depogit</a></h1>
+
+    <main>
+      <table class="log">
+        <thead>
           <tr>
-            <td><pre>{{ .Message }}</pre></td>
-            <td>{{ .Author.When.Format "2006/01/02 15:04:05" }}</td>
-            <td><a href="mailto:{{ .Author.Email }}">{{ .Author.Name }}</a></td>
+            <td>Commit message</td>
+            <td>Time</td>
+            <td>Author</td>
           </tr>
-        {{ end }}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {{ range .Commits }}
+            <tr>
+              <td><pre>{{ .Message }}</pre></td>
+              <td>{{ .Author.When.Format "2006/01/02 15:04:05" }}</td>
+              <td><a href="mailto:{{ .Author.Email }}">{{ .Author.Name }}</a></td>
+            </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </main>
   </body>
 </html>

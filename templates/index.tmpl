@@ -6,10 +6,12 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
   </head>
   <body>
-    <ul>
-      {{ range . }}
-        <li><a href="/{{ .Name }}">{{ .Name }}</a> - {{ .Time }}</li>
-      {{ end }}
-    </ul>
+    <main>
+      <ul>
+        {{ range . }}
+          <li><a href="/{{ .Name }}">{{ .Name }}</a> - {{ .Time }}</li>
+        {{ end }}
+      </ul>
+    </main>
   </body>
 </html>
