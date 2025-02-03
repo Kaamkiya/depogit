@@ -19,6 +19,7 @@ a {
   color: #b4befe;
 }
 
+/* Log-related styling */
 thead {
   font-weight: bold;
 }
@@ -30,4 +31,16 @@ td {
 
 .log tbody tr:nth-child(odd) {
   background: var(--color-bg-overlay);
+}
+
+/* Header styling */
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  float: left;
+  padding-right: 10%;
 }
