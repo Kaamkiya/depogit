@@ -13,6 +13,7 @@ func route() *http.ServeMux {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /", index)
+	mux.HandleFunc("GET /static/{file}", serveStatic)
 
 	return mux
 }
