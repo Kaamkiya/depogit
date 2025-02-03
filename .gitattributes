@@ -53,3 +53,4 @@
 .gitignore export-ignore
 .gitkeep export-ignore
 *.go -text diff=golang
+*.tmpl linguist-language=go-html-template
