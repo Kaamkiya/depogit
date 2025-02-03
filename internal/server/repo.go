@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/dustin/go-humanize"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
 )
@@ -13,13 +12,7 @@ import (
 func repoLog(w http.ResponseWriter, r *http.Request) {
 	repoName := r.PathValue("repo")
 
-	type commit struct {
-		Message      string
-		Time         string
-		LinesAdded   int
-		LinesRemoved int
-	}
-	var commits []commit
+	var commits []*object.Commit
 
 	repo, err := git.PlainOpen(repoPath + repoName)
 	if err != nil {
@@ -28,7 +21,16 @@ func repoLog(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	objs, err := repo.CommitObjects()
+	head, err := repo.Head()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Printf("ERRO: Failed to get repo %s HEAD: %v\n", repoName, err)
+	}
+
+	objs, err := repo.Log(&git.LogOptions{
+		From:  head.Hash(),
+		Order: git.LogOrderCommitterTime,
+	})
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Printf("ERRO: Failed to get commits from repo %s: %v\n", repoName, err)
@@ -36,29 +38,12 @@ func repoLog(w http.ResponseWriter, r *http.Request) {
 	}
 
 	objs.ForEach(func(o *object.Commit) error {
-		stats, err := o.Stats()
-		if err != nil {
-			return err
-		}
-
-		linesAdded := 0
-		linesRemoved := 0
-		for _, s := range stats {
-			linesAdded += s.Addition
-			linesRemoved += s.Deletion
-		}
-
-		commits = append(commits, commit{
-			Message:      o.Message,
-			Time:         humanize.Time(o.Author.When),
-			LinesAdded:   linesAdded,
-			LinesRemoved: linesRemoved,
-		})
+		commits = append(commits, o)
 		return nil
 	})
 
 	data := struct {
-		Commits []commit
+		Commits []*object.Commit
 		Name    string
 	}{
 		Commits: commits,

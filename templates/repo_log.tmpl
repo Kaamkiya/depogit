@@ -10,8 +10,7 @@
       {{ range .Commits }}
         <li>
           {{ .Message }} -
-          {{ .Time }} -
-          <span style="color:green">+{{ .LinesAdded }}</span>/<span style="color:red">-{{ .LinesRemoved }}</span>
+          {{ .Author.When.Format "2006/01/02 15:04:05" }}
         </li>
       {{ end }}
     </ul>
