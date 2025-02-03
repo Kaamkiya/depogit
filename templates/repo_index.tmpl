@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ .Name }} - depogit</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <h1>
+      <a href="/">depogit</a>
+    </h1>
+
+    <nav>
+      <ul>
+        <li>
+          <a href="/{{ .Name }}">overview</a>
+        </li>
+        <li>
+          <a href="/{{ .Name }}/log">log</a>
+        </li>
+      </ul>
+    </nav>
+  </body>
+</html>

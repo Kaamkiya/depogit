@@ -53,3 +53,14 @@ func repoLog(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/repo_log.tmpl"))
 	tmpl.Execute(w, data)
 }
+
+func repoIndex(w http.ResponseWriter, r *http.Request) {
+	data := struct {
+		Name string
+	}{
+		Name: r.PathValue("repo"),
+	}
+
+	tmpl := template.Must(template.ParseFiles("templates/repo_index.tmpl"))
+	tmpl.Execute(w, data)
+}

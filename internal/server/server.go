@@ -14,6 +14,7 @@ func route() *http.ServeMux {
 
 	mux.HandleFunc("GET /", index)
 	mux.HandleFunc("GET /static/{file}", serveStatic)
+	mux.HandleFunc("GET /{repo}", repoIndex)
 	mux.HandleFunc("GET /{repo}/log/{$}", repoLog)
 
 	return mux

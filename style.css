@@ -12,3 +12,11 @@ html, body {
 a {
   color: #b4befe;
 }
+
+thead {
+  font-weight: bold;
+}
+
+td {
+  white-space: pre;
+}
