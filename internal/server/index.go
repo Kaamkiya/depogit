@@ -19,20 +19,14 @@ func index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var repoPaths []os.DirEntry
-	for _, path := range allPaths {
-		if path.IsDir() {
-			repoPaths = append(repoPaths, path)
-		}
-	}
-
 	type repo struct {
 		Name string
 		Time time.Time
 	}
+
 	var repos []repo
 
-	for _, rp := range repoPaths {
+	for _, rp := range allPaths {
 		if rp.IsDir() {
 			r, err := git.PlainOpen(repoPath + rp.Name())
 			if err != nil {
