@@ -2,7 +2,7 @@ package server
 
 import "net/http"
 
-var repoPath = "/home/"
+var repoPath = "/var/www/git"
 
 func Start(addr string, scanPath string) {
 	repoPath = scanPath

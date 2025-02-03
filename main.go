@@ -13,5 +13,7 @@ func main() {
 	port := flag.Int("port", 34567, "The port on which to host the server.")
 	scanPath := flag.String("path", "/home/zm/projects/", "Where the git repos are stored.")
 
+	flag.Parse()
+
 	server.Start(net.JoinHostPort(*host, strconv.Itoa(*port)), *scanPath)
 }
