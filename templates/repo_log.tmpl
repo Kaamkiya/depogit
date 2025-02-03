@@ -8,7 +8,11 @@
   <body>
     <ul>
       {{ range .Commits }}
-        <li>{{ .Message }} - {{ .Time }}</li>
+        <li>
+          {{ .Message }} -
+          {{ .Time }} -
+          <span style="color:green">+{{ .LinesAdded }}</span>/<span style="color:red">-{{ .LinesRemoved }}</span>
+        </li>
       {{ end }}
     </ul>
   </body>

@@ -14,8 +14,10 @@ func repoLog(w http.ResponseWriter, r *http.Request) {
 	repoName := r.PathValue("repo")
 
 	type commit struct {
-		Message string
-		Time    string
+		Message      string
+		Time         string
+		LinesAdded   int
+		LinesRemoved int
 	}
 	var commits []commit
 
@@ -34,9 +36,23 @@ func repoLog(w http.ResponseWriter, r *http.Request) {
 	}
 
 	objs.ForEach(func(o *object.Commit) error {
+		stats, err := o.Stats()
+		if err != nil {
+			return err
+		}
+
+		linesAdded := 0
+		linesRemoved := 0
+		for _, s := range stats {
+			linesAdded += s.Addition
+			linesRemoved += s.Deletion
+		}
+
 		commits = append(commits, commit{
-			Message: o.Message,
-			Time:    humanize.Time(o.Author.When),
+			Message:      o.Message,
+			Time:         humanize.Time(o.Author.When),
+			LinesAdded:   linesAdded,
+			LinesRemoved: linesRemoved,
 		})
 		return nil
 	})

@@ -1,11 +1,11 @@
 :root {
-  --color-bg: #11111b;
-  --color-fg: #cdd6f4;
+  --color-bg: #0f0f0f;
+  --color-fg: #f2f2f0;
 }
 
 html, body {
-  background: var(--color-fg);
-  color: var(--color-bg);
+  background: var(--color-bg);
+  color: var(--color-fg);
   font-family: monospace;
 }
 
