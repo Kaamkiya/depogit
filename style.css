@@ -33,6 +33,12 @@ td {
   background: var(--color-bg-overlay);
 }
 
+/* Tree-related styling */
+.tree tbody tr:nth-child(odd) {
+  background: var(--color-bg-overlay);
+}
+
+
 /* Header styling */
 nav ul {
   list-style: none;

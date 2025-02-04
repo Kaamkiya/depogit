@@ -64,3 +64,46 @@ func repoIndex(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/repo_index.tmpl"))
 	tmpl.Execute(w, data)
 }
+
+func repoTree(w http.ResponseWriter, r *http.Request) {
+	repoName := r.PathValue("repo")
+
+	repo, err := git.PlainOpen(repoPath + repoName)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Printf("Failed to open repo %s: %v\n", repoName, err)
+		return
+	}
+
+	head, err := repo.Head()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Printf("Failed to get repo %s head: %v\n", repoName, err)
+		return
+	}
+
+	ref, err := repo.CommitObject(head.Hash())
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Printf("Failed to get repo %s ref: %v\n", repoName, err)
+		return
+	}
+
+	treeObjs, err := ref.Tree()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Printf("Failed to get repo %s tree: %v\n", repoName, err)
+		return
+	}
+
+	data := struct {
+		Name  string
+		Files []object.TreeEntry
+	}{
+		Name:  repoName,
+		Files: treeObjs.Entries,
+	}
+
+	tmpl := template.Must(template.ParseFiles("templates/repo_tree.tmpl"))
+	tmpl.Execute(w, data)
+}

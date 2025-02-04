@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ .Name }} - depogit</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+  </head>
+  <body>
+    <h1><a href="/">depogit</a></h1>
+
+    <main>
+      <table class="tree">
+        <thead>
+          <tr>
+            <td>Mode</td>
+            <td>Name</td>
+          </tr>
+        </thead>
+        <tbody>
+          {{ range .Files }}
+            <tr>
+              <td>{{ .Mode.ToOSFileMode }}</td>
+              <td>{{ .Name }}</td>
+            </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>
