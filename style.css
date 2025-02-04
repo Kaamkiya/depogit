@@ -24,7 +24,7 @@ thead {
   font-weight: bold;
 }
 
-td {
+.log td {
   white-space: pre;
   width: 33% !important;
 }
@@ -38,6 +38,11 @@ td {
   background: var(--color-bg-overlay);
 }
 
+.tree tbody tr td {
+  padding: 0;
+  margin: 0;
+}
+
 
 /* Header styling */
 nav ul {
@@ -49,4 +54,11 @@ nav ul {
 nav ul li {
   float: left;
   padding-right: 10%;
+}
+
+/* File content styling */
+.contents {
+  background: var(--color-bg-overlay);
+  padding: 1em;
+  overflow: scroll;
 }

@@ -17,10 +17,19 @@
           </tr>
         </thead>
         <tbody>
+          {{ $repoName := .Name }}
+          {{ $parent := .Parent }}
+          {{ $ref := .Ref }}
           {{ range .Files }}
             <tr>
               <td>{{ .Mode.ToOSFileMode }}</td>
-              <td>{{ .Name }}</td>
+              <td>
+                {{ if .Mode.IsFile }}
+                  <a href="/{{ $repoName }}/file/{{ $ref }}/{{ $parent }}/{{ .Name }}">{{ .Name }}</a>
+                {{ else }}
+                  <a href="/{{ $repoName }}/tree/{{ $ref }}/{{ $parent }}/{{ .Name }}">{{ .Name }}</a>
+                {{ end }}
+              </td>
             </tr>
           {{ end }}
         </tbody>
