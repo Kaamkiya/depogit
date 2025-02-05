@@ -1,13 +1,14 @@
 package server
 
 import (
-	"html/template"
 	"log"
 	"net/http"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
+
+	"codeberg.org/Kaamkiya/depogit/internal/tmpl"
 )
 
 func repoLog(w http.ResponseWriter, r *http.Request) {
@@ -51,8 +52,7 @@ func repoLog(w http.ResponseWriter, r *http.Request) {
 		Name:    repoName,
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/repo_log.tmpl"))
-	tmpl.Execute(w, data)
+	tmpl.Templates.ExecuteTemplate(w, "repo_log", data)
 }
 
 func repoIndex(w http.ResponseWriter, r *http.Request) {
@@ -62,8 +62,7 @@ func repoIndex(w http.ResponseWriter, r *http.Request) {
 		Name: r.PathValue("repo"),
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/repo_index.tmpl"))
-	tmpl.Execute(w, data)
+	tmpl.Templates.ExecuteTemplate(w, "repo_index", data)
 }
 
 func repoTree(w http.ResponseWriter, r *http.Request) {
@@ -130,8 +129,7 @@ func repoTree(w http.ResponseWriter, r *http.Request) {
 		Ref:    ref,
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/repo_tree.tmpl"))
-	tmpl.Execute(w, data)
+	tmpl.Templates.ExecuteTemplate(w, "tree", data)
 }
 
 func repoFile(w http.ResponseWriter, r *http.Request) {
@@ -188,7 +186,6 @@ func repoFile(w http.ResponseWriter, r *http.Request) {
 		data["name"] = repoName
 		data["contents"] = contents
 
-		tmpl := template.Must(template.ParseFiles("templates/repo_file.tmpl"))
-		tmpl.Execute(w, data)
+		tmpl.Templates.ExecuteTemplate(w, "repo_file", data)
 	}
 }

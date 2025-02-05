@@ -1,13 +1,14 @@
 package server
 
 import (
-	"html/template"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/dustin/go-humanize"
 	"github.com/go-git/go-git/v5"
+
+	"codeberg.org/Kaamkiya/depogit/internal/tmpl"
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -50,7 +51,5 @@ func index(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/index.tmpl"))
-
-	tmpl.Execute(w, repos)
+	tmpl.Templates.ExecuteTemplate(w, "index", repos)
 }

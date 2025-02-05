@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
+{{ define "tree" }}
+    {{ template "head" . }}
     <title>{{ .Name }} - depogit</title>
-    <link rel="stylesheet" type="text/css" href="/static/style.css" />
   </head>
   <body>
     <h1><a href="/">depogit</a></h1>
@@ -37,3 +34,4 @@
     </main>
   </body>
 </html>
+{{ end }}
