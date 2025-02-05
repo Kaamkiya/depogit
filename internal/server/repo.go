@@ -183,7 +183,7 @@ func repoFile(w http.ResponseWriter, r *http.Request) {
 	} else {
 		data := make(map[string]any)
 
-		data["name"] = repoName
+		data["Name"] = repoName
 		data["contents"] = contents
 
 		tmpl.Templates.ExecuteTemplate(w, "repo_file", data)
