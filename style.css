@@ -27,6 +27,8 @@ thead {
 .log td {
   white-space: pre;
   width: 33% !important;
+  padding: 0;
+  margin: 0;
 }
 
 .log tbody tr:nth-child(odd) {
@@ -42,7 +44,6 @@ thead {
   padding: 0;
   margin: 0;
 }
-
 
 /* Header styling */
 nav ul {

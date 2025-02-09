@@ -4,22 +4,6 @@
   </head>
   <body>
     {{ template "header" . }}
-
-    <main>
-      <nav>
-        <ul>
-          <li>
-            <a href="/{{ .Name }}">overview</a>
-          </li>
-          <li>
-            <a href="/{{ .Name }}/log">log</a>
-          </li>
-          <li>
-            <a href="/{{ .Name }}/tree/HEAD">tree</a>
-          </li>
-        </ul>
-      </nav>
-    </main>
   </body>
 </html>
 {{ end }}
