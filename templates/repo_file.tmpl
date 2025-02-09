@@ -6,9 +6,8 @@
     {{ template "header" . }}
 
     <main>
-      <pre class="contents">
-{{ .contents }}
-      </pre>
+      <h2>{{ .Path }}</h2>
+      <pre class="contents">{{ .contents }}</pre>
     </main>
   </body>
 </html>

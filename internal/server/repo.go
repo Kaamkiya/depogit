@@ -56,10 +56,8 @@ func repoLog(w http.ResponseWriter, r *http.Request) {
 }
 
 func repoIndex(w http.ResponseWriter, r *http.Request) {
-	data := struct {
-		Name string
-	}{
-		Name: r.PathValue("repo"),
+	data := map[string]string{
+		"Name": r.PathValue("repo"),
 	}
 
 	tmpl.Templates.ExecuteTemplate(w, "repo_index", data)
@@ -117,17 +115,13 @@ func repoTree(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	data := struct {
-		Name   string
-		Files  []object.TreeEntry
-		Parent string
-		Ref    string
-	}{
-		Name:   repoName,
-		Files:  files,
-		Parent: path,
-		Ref:    ref,
-	}
+	data := make(map[string]any)
+
+	data["Name"] = repoName
+	data["Parent"] = path
+	data["Files"] = files
+	data["Ref"] = ref
+	data["Path"] = path
 
 	tmpl.Templates.ExecuteTemplate(w, "tree", data)
 }
@@ -184,7 +178,16 @@ func repoFile(w http.ResponseWriter, r *http.Request) {
 		data := make(map[string]any)
 
 		data["Name"] = repoName
-		data["contents"] = contents
+
+		// I don't care about the error. If there is an error, just assume it's not
+		// a binary file.
+		if isBin, _ := f.IsBinary(); !isBin {
+			data["contents"] = contents
+		} else {
+			data["contents"] = "Not displaying binary file."
+		}
+
+		data["Path"] = path
 
 		tmpl.Templates.ExecuteTemplate(w, "repo_file", data)
 	}
